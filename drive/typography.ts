@@ -1,0 +1,17 @@
+export const T = {
+  pageTitle: { fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: 400, color: '#1a1a1a', letterSpacing: '-0.01em' } as React.CSSProperties,
+  brand: { fontFamily: 'Georgia, serif', fontSize: '14px', fontWeight: 400, color: '#1a1a1a', letterSpacing: '0.02em' } as React.CSSProperties,
+  sectionLabel: { fontFamily: 'system-ui, sans-serif', fontSize: '10px', fontWeight: 400, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: '#b0b0b0' },
+  navItem: { fontFamily: 'system-ui, sans-serif', fontSize: '13px', fontWeight: 400, letterSpacing: '0.01em' } as React.CSSProperties,
+  sidebarAction: { fontFamily: 'system-ui, sans-serif', fontSize: '13px', fontWeight: 400, letterSpacing: '0.02em' } as React.CSSProperties,
+  filename: { fontFamily: 'system-ui, sans-serif', fontSize: '11.5px', fontWeight: 500, color: '#222', letterSpacing: '0.005em', lineHeight: '1.3', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const },
+  filemeta: { fontFamily: 'system-ui, sans-serif', fontSize: '10.5px', fontWeight: 400, color: '#b0b0b0', letterSpacing: '0.02em', marginTop: '2px' },
+  listFilename: { fontFamily: 'system-ui, sans-serif', fontSize: '13px', fontWeight: 400, color: '#222', letterSpacing: '0.005em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const },
+  listMeta: { fontFamily: 'system-ui, sans-serif', fontSize: '11px', fontWeight: 400, color: '#b0b0b0', letterSpacing: '0.02em' },
+  uploadFilename: { fontFamily: 'system-ui, sans-serif', fontSize: '12.5px', fontWeight: 400, color: '#222', letterSpacing: '0.005em', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' as const },
+  modalTitle: { fontFamily: 'Georgia, serif', fontSize: '16px', fontWeight: 400, color: '#1a1a1a', letterSpacing: '0.01em' } as React.CSSProperties,
+  modalSub: { fontFamily: 'system-ui, sans-serif', fontSize: '12px', fontWeight: 400, color: '#b0b0b0', letterSpacing: '0.02em' } as React.CSSProperties,
+  uploadCount: { fontFamily: 'system-ui, sans-serif', fontSize: '12px', fontWeight: 400, color: '#444', letterSpacing: '0.02em' } as React.CSSProperties,
+  actionLink: { fontFamily: 'system-ui, sans-serif', fontSize: '11.5px', fontWeight: 400, letterSpacing: '0.04em' } as React.CSSProperties,
+  badge: { fontFamily: 'system-ui, sans-serif', fontSize: '10px', fontWeight: 500, letterSpacing: '0.01em' } as React.CSSProperties,
+};
