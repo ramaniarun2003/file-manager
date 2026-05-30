@@ -8,7 +8,7 @@ import { UploadQueue } from '@components/UploadQueue';
 import { DropZone } from '@components/DropZone';
 import { FileGrid } from '@components/FileGrid';
 import { FileList } from '@components/FileList';
-import { UploadIcon, ListViewIcon, GridViewIcon } from '@components/NavIcons';
+import { UploadIcon, ListViewIcon, GridViewIcon, MenuIcon } from '@components/NavIcons';
 import { useFiles } from '@drive/hooks/useFiles';
 import { useUploader } from '@drive/hooks/useUploader';
 import { useDownloader } from '@drive/hooks/useDownloader';
@@ -17,6 +17,7 @@ import { useFolderCreator } from '@drive/hooks/useFolderCreator';
 export default function FileManager() {
   const [isDragging, setIsDragging] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { files, folders, currentFolder, loadingFiles, fetchFiles, navigateToFolder } = useFiles();
@@ -46,17 +47,22 @@ export default function FileManager() {
         currentFolder={currentFolder}
         onNavigate={navigate}
         onNewFolder={() => setShowNewFolder(true)}
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
       />
 
-      <div className="flex-1 ml-56 flex flex-col min-h-screen">
-        <header className="flex items-center justify-end px-8 py-4 border-b border-gray-100 sticky top-0 bg-white z-10">
+      <div className="flex-1 md:ml-56 flex flex-col min-h-screen">
+        <header className="flex items-center justify-between md:justify-end px-4 md:px-8 py-4 border-b border-gray-100 sticky top-0 bg-white z-10">
+          <button onClick={() => setSidebarOpen(true)} className="md:hidden text-gray-500 p-1">
+            <MenuIcon />
+          </button>
           <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 select-none"
             style={{ fontSize: '12px', fontWeight: 500, fontFamily: 'system-ui, sans-serif', letterSpacing: '0.05em' }}>
             A
           </div>
         </header>
 
-        <div className="flex-1 px-8 py-8">
+        <div className="flex-1 px-4 md:px-8 py-6 md:py-8">
           <h1 style={{ ...T.pageTitle, marginBottom: '32px' }}>
             {currentFolder || 'Welcome, Arun'}
           </h1>
@@ -83,7 +89,7 @@ export default function FileManager() {
           {folders.length > 0 && (
             <section className="mb-8">
               <p style={{ ...T.sectionLabel, marginBottom: '14px' }}>Folders</p>
-              <div className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3">
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 xl:grid-cols-10 gap-3">
                 {folders.map((f, i) => (
                   <FolderCard key={f.key} name={f.name} index={i} onClick={() => navigate(f.name)} />
                 ))}
