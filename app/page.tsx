@@ -20,10 +20,9 @@ export default function FileManager() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { files, folders, currentFolder, loadingFiles, fetchFiles, navigateToFolder } = useFiles();
-  const { uploadItems, isUploading, handleFiles, startUpload, setUploadItems } = useUploader(currentFolder, () => fetchFiles(currentFolder));
-  const { downloadingKey, handleDownload } = useDownloader();
-  const { showNewFolder, setShowNewFolder, newFolderName, setNewFolderName, creatingFolder, createFolder } = useFolderCreator(() => fetchFiles(currentFolder));
+  const { files, folders, currentFolder, loadingFiles, navigateToFolder } = useFiles();
+const { uploadItems, isUploading, handleFiles, startUpload, setUploadItems } = useUploader(currentFolder);  const { downloadingKey, handleDownload } = useDownloader();
+  const { showNewFolder, setShowNewFolder, newFolderName, setNewFolderName, creatingFolder, createFolder } = useFolderCreator(currentFolder);
 
   const handleDrop = (e: DragEvent) => {
     e.preventDefault();

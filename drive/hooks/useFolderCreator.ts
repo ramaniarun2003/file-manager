@@ -1,27 +1,29 @@
 'use client';
 import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { API_BASE } from '@drive/constants';
 
-export function useFolderCreator(onDone: () => void) {
+export function useFolderCreator(currentFolder: string) {
   const [showNewFolder, setShowNewFolder] = useState(false);
   const [newFolderName, setNewFolderName] = useState('');
   const [creatingFolder, setCreatingFolder] = useState(false);
+  const queryClient = useQueryClient();
 
   const createFolder = async () => {
     if (!newFolderName.trim()) return;
     try {
       setCreatingFolder(true);
-      const r = await fetch(`${API_BASE}/create-folder`, {
+      const createFolderResponse = await fetch(`${API_BASE}/create-folder`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ folderName: newFolderName.trim() }),
       });
-      if (!r.ok) throw new Error('Failed');
+      if (!createFolderResponse.ok) throw new Error('Failed to create folder');
       setNewFolderName('');
       setShowNewFolder(false);
-      onDone();
-    } catch (e) {
-      console.error(e);
+      queryClient.invalidateQueries({ queryKey: ['files', currentFolder] });
+    } catch (error) {
+      console.error(error);
     } finally {
       setCreatingFolder(false);
     }

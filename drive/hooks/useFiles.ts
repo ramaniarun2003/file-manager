@@ -1,37 +1,43 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { API_BASE } from '@drive/constants';
 import { S3File, Folder } from '@drive/types';
 
+const fetchFiles = async (folder = '') => {
+  const url = folder
+    ? `${API_BASE}/list-files?folder=${encodeURIComponent(folder)}`
+    : `${API_BASE}/list-files`;
+  const res = await fetch(url);
+  if (!res.ok) throw new Error('Failed to fetch files');
+  return res.json();
+};
+
 export function useFiles() {
-  const [files, setFiles] = useState<S3File[]>([]);
-  const [folders, setFolders] = useState<Folder[]>([]);
   const [currentFolder, setCurrentFolder] = useState('');
-  const [loadingFiles, setLoadingFiles] = useState(true);
+  const queryClient = useQueryClient();
 
-  const fetchFiles = async (folder = '') => {
-    try {
-      setLoadingFiles(true);
-      const url = folder
-        ? `${API_BASE}/list-files?folder=${encodeURIComponent(folder)}`
-        : `${API_BASE}/list-files`;
-      const res = await fetch(url);
-      const data = await res.json();
-      setFiles(data.files || []);
-      setFolders(data.folders || []);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoadingFiles(false);
-    }
-  };
-
-  useEffect(() => { fetchFiles(''); }, []);
+  const { data, isLoading } = useQuery({
+    queryKey: ['files', currentFolder],
+    queryFn: () => fetchFiles(currentFolder),
+    staleTime: 30_000,
+    gcTime: 5 * 60_000,
+  });
 
   const navigateToFolder = (name: string) => {
     setCurrentFolder(name);
-    fetchFiles(name);
   };
 
-  return { files, folders, currentFolder, loadingFiles, fetchFiles, navigateToFolder };
+  const refetch = () => {
+    queryClient.invalidateQueries({ queryKey: ['files', currentFolder] });
+  };
+
+  return {
+    files: (data?.files ?? []) as S3File[],
+    folders: (data?.folders ?? []) as Folder[],
+    currentFolder,
+    loadingFiles: isLoading,
+    fetchFiles: refetch,
+    navigateToFolder,
+  };
 }
