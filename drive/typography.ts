@@ -1,6 +1,6 @@
 export const T = {
-  pageTitle: { fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: 400, color: '#1a1a1a', letterSpacing: '-0.01em' } as React.CSSProperties,
-  brand: { fontFamily: 'Georgia, serif', fontSize: '14px', fontWeight: 400, color: '#1a1a1a', letterSpacing: '0.02em' } as React.CSSProperties,
+  pageTitle: { fontFamily: 'Georgia, serif', fontSize: '24px', fontWeight: 400, letterSpacing: '-0.01em' } as React.CSSProperties,
+  brand: { fontFamily: 'Georgia, serif', fontSize: '14px', fontWeight: 400, letterSpacing: '0.02em' } as React.CSSProperties,
   sectionLabel: { fontFamily: 'system-ui, sans-serif', fontSize: '10px', fontWeight: 400, letterSpacing: '0.14em', textTransform: 'uppercase' as const, color: '#b0b0b0' },
   navItem: { fontFamily: 'system-ui, sans-serif', fontSize: '13px', fontWeight: 400, letterSpacing: '0.01em' } as React.CSSProperties,
   sidebarAction: { fontFamily: 'system-ui, sans-serif', fontSize: '13px', fontWeight: 400, letterSpacing: '0.02em' } as React.CSSProperties,
