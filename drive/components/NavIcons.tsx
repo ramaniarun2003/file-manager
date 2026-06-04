@@ -1,6 +1,6 @@
 export function CloudIcon() {
   return (
-    <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
     </svg>
   );
@@ -40,7 +40,7 @@ export function UploadIcon() {
 
 export function DownloadIcon() {
   return (
-    <svg className="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
     </svg>
   );
@@ -70,11 +70,73 @@ export function EmptyUploadIcon({ size = 10 }: { size?: number }) {
   );
 }
 
-export function FolderSidebarIcon({ color }: { color: string }) {
+// ── Meaningful folder icons (name-based) ──────────────────
+const folderIconCls = 'w-3.5 h-3.5 flex-shrink-0';
+
+function CakeIcon() {
   return (
-    <svg className="w-3.5 h-3.5 flex-shrink-0" style={{ color }} fill="currentColor" viewBox="0 0 24 24">
-      <path d="M10 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z" />
+    <svg className={folderIconCls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 21h16M5 21v-7a2 2 0 012-2h10a2 2 0 012 2v7M3 12h18M12 8.5V5m0 0l-1.5 1M12 5l1.5 1" />
     </svg>
+  );
+}
+
+function SunIcon() {
+  return (
+    <svg className={folderIconCls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.36-6.36l-1.42 1.42M6.34 17.66l-1.42 1.42m0-13.5l1.42 1.42m11.32 11.32l1.42 1.42M12 8a4 4 0 100 8 4 4 0 000-8z" />
+    </svg>
+  );
+}
+
+function BuildingIcon() {
+  return (
+    <svg className={folderIconCls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 21V5a1 1 0 011-1h6a1 1 0 011 1v16M12 21V9a1 1 0 011-1h6a1 1 0 011 1v12M3 21h18M7 8h2M7 12h2M7 16h2M15 12h2M15 16h2" />
+    </svg>
+  );
+}
+
+function MountainIcon() {
+  return (
+    <svg className={folderIconCls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 19l5.5-11 3 5.5L15 7l6 12H3z" />
+    </svg>
+  );
+}
+
+function PlaneIcon() {
+  return (
+    <svg className={folderIconCls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+    </svg>
+  );
+}
+
+function PlainFolderIcon() {
+  return (
+    <svg className={folderIconCls} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 7a2 2 0 012-2h4l2 2h8a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V7z" />
+    </svg>
+  );
+}
+
+function pickFolderIcon(name: string) {
+  const n = name.toLowerCase();
+  if (n.includes('birthday') || n.includes('bday')) return CakeIcon;
+  if (n.includes('california') || n.includes('beach')) return SunIcon;
+  if (n.includes('chicago') || n.includes('city')) return BuildingIcon;
+  if (n.includes('duluth') || n.includes('mountain') || n.includes('hike')) return MountainIcon;
+  if (n.includes('india') || n.includes('trip') || n.includes('travel')) return PlaneIcon;
+  return PlainFolderIcon;
+}
+
+export function FolderSidebarIcon({ name = '', color = 'currentColor' }: { name?: string; color?: string }) {
+  const Icon = pickFolderIcon(name);
+  return (
+    <span style={{ color }} className="inline-flex">
+      <Icon />
+    </span>
   );
 }
 

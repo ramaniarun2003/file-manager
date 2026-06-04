@@ -17,13 +17,15 @@ import { useFolderCreator } from '@drive/hooks/useFolderCreator';
 export default function FileManager() {
   const [isDragging, setIsDragging] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { files, folders, currentFolder, loadingFiles, navigateToFolder } = useFiles();
-const { uploadItems, isUploading, handleFiles, startUpload, setUploadItems } = useUploader(currentFolder);  const { downloadingKey, handleDownload } = useDownloader();
+  const { uploadItems, isUploading, handleFiles, startUpload, setUploadItems } = useUploader(currentFolder);
+  const { downloadingKey, handleDownload } = useDownloader();
   const { showNewFolder, setShowNewFolder, newFolderName, setNewFolderName, creatingFolder, createFolder } = useFolderCreator(currentFolder);
 
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const handleDrop = (e: DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
@@ -39,7 +41,7 @@ const { uploadItems, isUploading, handleFiles, startUpload, setUploadItems } = u
   const navigate = (name: string) => { navigateToFolder(name); setUploadItems([]); };
 
   return (
-    <main className="min-h-screen bg-white flex" style={{ color: '#222', fontFamily: 'system-ui, sans-serif' }}>
+    <main className="min-h-screen bg-[#F0F4F4] flex" style={{ color: '#1C2B2B', fontFamily: 'system-ui, sans-serif' }}>
 
       <Sidebar
         folders={folders}
@@ -48,14 +50,16 @@ const { uploadItems, isUploading, handleFiles, startUpload, setUploadItems } = u
         onNewFolder={() => setShowNewFolder(true)}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
+        collapsed={collapsed}
+        onToggleCollapse={() => setCollapsed(c => !c)}
       />
 
       <div className="flex-1 md:ml-56 flex flex-col min-h-screen">
-        <header className="flex items-center justify-between md:justify-end px-4 md:px-8 py-4 border-b border-gray-100 sticky top-0 bg-white z-10">
-          <button onClick={() => setSidebarOpen(true)} className="md:hidden text-gray-500 p-1">
+        <header className="flex items-center justify-between md:justify-end px-4 md:px-8 py-4 border-b border-[#E0E8E7] sticky top-0 bg-[#F0F4F4] z-10">
+          <button onClick={() => setSidebarOpen(true)} className="md:hidden text-[#7B9491] p-1">
             <MenuIcon />
           </button>
-          <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 select-none"
+          <div className="w-8 h-8 rounded-full bg-[#2EA89A] flex items-center justify-center text-[#0E1A1A] select-none"
             style={{ fontSize: '12px', fontWeight: 500, fontFamily: 'system-ui, sans-serif', letterSpacing: '0.05em' }}>
             A
           </div>
@@ -102,16 +106,16 @@ const { uploadItems, isUploading, handleFiles, startUpload, setUploadItems } = u
                 <p style={T.sectionLabel}>Files</p>
                 <div className="flex items-center gap-3">
                   <button onClick={() => inputRef.current?.click()}
-                    className="text-blue-400 hover:text-blue-500 flex items-center gap-1 transition-colors"
+                    className="text-[#1D8276] hover:text-[#2EA89A] flex items-center gap-1 transition-colors"
                     style={T.actionLink}>
                     <UploadIcon /> Upload
                   </button>
                   <button onClick={() => setViewMode('list')}
-                    className={`p-1.5 rounded transition-colors ${viewMode === 'list' ? 'text-gray-700' : 'text-gray-300 hover:text-gray-500'}`}>
+                    className={`p-1.5 rounded transition-colors ${viewMode === 'list' ? 'text-[#1C2B2B]' : 'text-[#A3B8B5] hover:text-[#7B9491]'}`}>
                     <ListViewIcon />
                   </button>
                   <button onClick={() => setViewMode('grid')}
-                    className={`p-1.5 rounded transition-colors ${viewMode === 'grid' ? 'text-gray-700' : 'text-gray-300 hover:text-gray-500'}`}>
+                    className={`p-1.5 rounded transition-colors ${viewMode === 'grid' ? 'text-[#1C2B2B]' : 'text-[#A3B8B5] hover:text-[#7B9491]'}`}>
                     <GridViewIcon />
                   </button>
                 </div>

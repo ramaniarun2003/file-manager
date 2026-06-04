@@ -33,7 +33,7 @@ export function LazyFileCard({ f, downloadingKey, onDownload }: {
 
   return (
     <div ref={ref}
-      className="bg-white border border-gray-100 rounded-xl overflow-hidden hover:border-gray-200 transition-all group cursor-pointer"
+      className="bg-white border border-[#DCE6E4] rounded-xl overflow-hidden hover:border-[#2EA89A] transition-all group cursor-pointer"
       style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
       <div className={`h-32 flex items-center justify-center relative overflow-hidden ${getThumbBg(f.filename)}`}>
         {isPreviewable(f.filename) && thumbUrl ? (
@@ -50,13 +50,14 @@ export function LazyFileCard({ f, downloadingKey, onDownload }: {
           <span style={{ ...T.badge, color: 'white' }}>{formatBytes(f.size)}</span>
         </div>
       </div>
-      <div className="px-3 py-2.5 border-t border-gray-50 flex items-start justify-between gap-1">
+      <div className="px-3 py-2.5 border-t border-[#EAF1F0] flex items-start justify-between gap-1">
         <div className="min-w-0 flex-1">
           <p style={T.filename}>{f.filename}</p>
           <p style={T.filemeta}>{formatDate(f.lastModified)}</p>
         </div>
         <button onClick={() => onDownload(f.key)} disabled={downloadingKey === f.key}
-          className="opacity-0 group-hover:opacity-100 p-1 hover:bg-gray-100 rounded-lg transition-all flex-shrink-0 mt-0.5">
+          className="p-1.5 text-[#1D8276] hover:bg-[#E4EEEC] rounded-lg transition-all flex-shrink-0 mt-0.5 disabled:opacity-40"
+          aria-label="Download">
           <DownloadIcon />
         </button>
       </div>
